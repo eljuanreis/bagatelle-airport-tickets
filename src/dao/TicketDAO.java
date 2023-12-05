@@ -7,19 +7,18 @@ import java.sql.SQLException;
 
 import contracts.DAO;
 import database.DBManager;
-import entity.Billet;
+import entity.Ticket;
 
-public class BilletDAO implements DAO {
+public class TicketDAO implements DAO {
 
-	private Billet billet;
+	private Ticket ticket;
 	private DBManager db = DBManager.getInstance();
 	private Connection con;
 	
-	public BilletDAO(Billet Billet) {
-		this.billet = Billet;
+	public TicketDAO(Ticket ticket) {
+		this.ticket = ticket;
 	}
 	
-	@Override
 	public void create() {
 		try {
 			PreparedStatement stmt = con.prepareStatement("asda");
@@ -30,7 +29,6 @@ public class BilletDAO implements DAO {
 		}
 	}
 
-	@Override
 	public ResultSet index() {
 		try {
 			PreparedStatement stmt = con.prepareStatement("asda");
