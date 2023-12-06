@@ -4,13 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import contracts.DAO;
 import database.DBManager;
 import entity.Flight;
 import utils.ParseDate;
 import utils.ParseTime;
 
 
-public class FlightDAO {
+public class FlightDAO implements DAO {
 	
 	private Flight flight;
 	private DBManager db = DBManager.getInstance();

@@ -3,10 +3,12 @@ package application;
 import dao.AirlineDAO;
 import dao.FlightDAO;
 import dao.PassengerDAO;
+import dao.TicketDAO;
 import database.DBManager;
 import entity.Airline;
 import entity.Flight;
 import entity.Passenger;
+import entity.Ticket;
 import utils.ParseDate;
 import utils.ParseTime;
 
@@ -19,25 +21,26 @@ public class Index {
 			DBManager db = DBManager.getInstance();
 			db.testConnection();
 			
-//			Passenger p = new Passenger();
-//			p.setName("aa");
-//			p.setCpf("aaa");
-//			p.setPhone("123");
-//			p.setEmail("aasd");
+			Passenger p = new Passenger();
+			p.setId(1);
+			p.setName("aa");
+			p.setCpf("aaa");
+			p.setPhone("123");
+			p.setEmail("aasd");
 //			
 //			PassengerDAO pd = new PassengerDAO(p);
 //			pd.create();
-//			
 //			pd.index();
 			
 			Airline a = new Airline();
 			a.setName("gol");
 			a.setId(2);
-			AirlineDAO ad = new AirlineDAO(a);
-			ad.create();
-			ad.index();
+//			AirlineDAO ad = new AirlineDAO(a);
+//			ad.create();
+//			ad.index();
 			
 			Flight f = new Flight();
+			f.setId(2);
 			f.setAirline(a);
 			f.setAirplane("Boeing 737");
 			f.setNumber("G70787");
@@ -49,9 +52,19 @@ public class Index {
 			f.setDestinationAirport("SBRJ");
 			f.setGate("1A");
 			
-			FlightDAO fd = new FlightDAO(f);
-			fd.create();
-			fd.index();
+//			FlightDAO fd = new FlightDAO(f);
+//			fd.create();
+//			fd.index();
+			
+			Ticket t = new Ticket();
+			t.setFlight(f);
+			t.setPassenger(p);
+			t.setSeat("33A");
+			t.setSeatClass("Economy Class");
+			
+			TicketDAO td = new TicketDAO(t);
+			td.create();
+			td.index();
 			
 			
 		} catch (Exception e) {

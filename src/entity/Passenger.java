@@ -3,6 +3,7 @@ package entity;
 import java.time.LocalDate;
 
 public class Passenger {
+	private long id;
 	private String name;
 	private String cpf;
 	private String phone;
@@ -13,13 +14,22 @@ public class Passenger {
 		super();
 	}
 	
-	public Passenger(String name, String cpf, String phone, String email, LocalDate birthDate) {
+	public Passenger(long id, String name, String cpf, String phone, String email, LocalDate birthDate) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
 		this.phone = phone;
 		this.email = email;
 		this.birthDate = birthDate;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getName() {
