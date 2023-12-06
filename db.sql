@@ -17,6 +17,7 @@ CREATE TABLE airline (
 
 CREATE TABLE flight (
   id INT PRIMARY KEY AUTO_INCREMENT,
+  airline_id INT,
   flightNumber VARCHAR(20),
   flightDate DATE,
   boardingTime TIME,
@@ -28,8 +29,10 @@ CREATE TABLE flight (
   FOREIGN KEY (airline_id) REFERENCES airline(id)
 );
 
-CRETE TABLE ticket (
+CREATE TABLE ticket (
   id INT PRIMARY KEY AUTO_INCREMENT,
+  passenger_id INT,
+  flight_id INT,
   seat VARCHAR(10),
   seatClass VARCHAR(20),
   FOREIGN KEY (passenger_id) REFERENCES passenger(id),
