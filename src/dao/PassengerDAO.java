@@ -7,19 +7,18 @@ import java.sql.SQLException;
 
 import contracts.DAO;
 import database.DBManager;
-import entity.Rider;
+import entity.Passenger;
 
-public class RiderDAO implements DAO {
+public class PassengerDAO implements DAO {
 
-	private Rider rider;
+	private Passenger passenger;
 	private DBManager db = DBManager.getInstance();
 	private Connection con;
 	
-	public RiderDAO(Rider rider) {
-		this.rider = rider;
+	public PassengerDAO(Passenger passenger) {
+		this.passenger = passenger;
 	}
 	
-	@Override
 	public void create() {
 		try {
 			PreparedStatement stmt = con.prepareStatement("asda");
@@ -30,7 +29,6 @@ public class RiderDAO implements DAO {
 		}
 	}
 
-	@Override
 	public ResultSet index() {
 		try {
 			PreparedStatement stmt = con.prepareStatement("asda");
