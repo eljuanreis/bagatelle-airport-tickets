@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Flight {
+	private Airline airline;
 	private String airplane;
 	private long number;
 	private LocalDate date;
@@ -14,10 +15,11 @@ public class Flight {
 	private String destinationAirport;
 	private String gate;
 	
-	public Flight(String airplane, long number, LocalDate date, LocalTime boardingTime,
-			LocalTime departureTime, LocalTime arrivalTime, String departureAirport,
-			String destinationAirport, String gate) {
+	public Flight(Airline airline, String airplane, long number, LocalDate date,
+			 LocalTime boardingTime, LocalTime departureTime, LocalTime arrivalTime,
+			 String departureAirport, String destinationAirport, String gate) {
 		super();
+		this.airline = airline;
 		this.airplane = airplane;
 		this.number = number;
 		this.date = date;
@@ -27,6 +29,14 @@ public class Flight {
 		this.departureAirport = departureAirport;
 		this.destinationAirport = destinationAirport;
 		this.gate = gate;
+	}
+	
+	public Airline getAirline() {
+		return airline;
+	}
+
+	public void setAirline(Airline airline) {
+		this.airline = airline;
 	}
 
 	public String getAirplane() {
