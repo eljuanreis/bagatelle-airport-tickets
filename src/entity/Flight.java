@@ -6,7 +6,7 @@ import java.time.LocalTime;
 public class Flight {
 	private Airline airline;
 	private String airplane;
-	private long number;
+	private String number;
 	private LocalDate date;
 	private LocalTime boardingTime;
 	private LocalTime departureTime;
@@ -19,7 +19,7 @@ public class Flight {
 		super();
 	}
 	
-	public Flight(Airline airline, String airplane, long number, LocalDate date,
+	public Flight(Airline airline, String airplane, String number, LocalDate date,
 			 LocalTime boardingTime, LocalTime departureTime, LocalTime arrivalTime,
 			 String departureAirport, String destinationAirport, String gate) {
 		super();
@@ -51,11 +51,11 @@ public class Flight {
 		this.airplane = airplane;
 	}
 
-	public long getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(long number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
