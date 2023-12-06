@@ -9,6 +9,10 @@ public class Passenger {
 	private String email;
 	private LocalDate birthDate;
 	
+	public Passenger() {
+		super();
+	}
+	
 	public Passenger(String name, String cpf, String phone, String email, LocalDate birthDate) {
 		super();
 		this.name = name;
