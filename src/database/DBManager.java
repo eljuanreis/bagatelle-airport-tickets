@@ -1,12 +1,11 @@
 package database;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import contracts.Keepable;
 
 /**
  * Classe para manipulação do CRUD do banco de dados.
@@ -97,11 +96,11 @@ public class DBManager {
 
 				return null;
 			}
-									
-			this.close();
-			
+											
 			ResultSet rs = stmt.executeQuery();
-			
+	
+			this.close();
+
 			return rs;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -109,5 +108,19 @@ public class DBManager {
 		}
 		
 		return null;
-	}	
+	}
+	
+	public PreparedStatement prepare(String sql) {
+		try {
+			this.open();
+			PreparedStatement p = con.prepareStatement(sql);
+
+			return p;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
