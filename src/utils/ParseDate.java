@@ -30,6 +30,7 @@ public abstract class ParseDate {
 			return null;
 		}
 		
-		return (Date) Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+		java.util.Date utilDate = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	    return new java.sql.Date(utilDate.getTime());
 	}
 }
