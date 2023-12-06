@@ -15,6 +15,10 @@ public class Flight {
 	private String destinationAirport;
 	private String gate;
 	
+	public Flight() {
+		super();
+	}
+	
 	public Flight(Airline airline, String airplane, long number, LocalDate date,
 			 LocalTime boardingTime, LocalTime departureTime, LocalTime arrivalTime,
 			 String departureAirport, String destinationAirport, String gate) {

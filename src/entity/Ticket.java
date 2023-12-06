@@ -7,6 +7,10 @@ public class Ticket {
 	private String seat;
 	private String seatClass;
 	
+	public Ticket() {
+		super();
+	}
+	
 	public Ticket(Passenger passenger, Flight flight, long id, String seat, String seatClass) {
 		super();
 		this.passenger = passenger;
