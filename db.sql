@@ -1,40 +1,40 @@
 CREATE DATABASE airport;
 use airport;
 
-CREATE TABLE passenger (
+CREATE TABLE passengers (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  passengerName VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
   cpf VARCHAR(14) NOT NULL,
   phone VARCHAR(20),
   email VARCHAR(255),
-  birthDate DATE
+  birthday DATE
 );
 
-CREATE TABLE airline (
+CREATE TABLE airlines (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  airlineName VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE flight (
+CREATE TABLE flights (
   id INT PRIMARY KEY AUTO_INCREMENT,
   airline_id INT,
-  flightNumber VARCHAR(20),
-  flightDate DATE,
+  number VARCHAR(20),
+  date DATE,
   boardingTime TIME,
   departureTime TIME,
   arrivalTime TIME,
   departureAirport VARCHAR(255),
   destinationAirport VARCHAR(255),
   gate VARCHAR(10),
-  FOREIGN KEY (airline_id) REFERENCES airline(id)
+  FOREIGN KEY (airline_id) REFERENCES airlines(id)
 );
 
-CREATE TABLE ticket (
+CREATE TABLE tickets (
   id INT PRIMARY KEY AUTO_INCREMENT,
   passenger_id INT,
   flight_id INT,
   seat VARCHAR(10),
   seatClass VARCHAR(20),
-  FOREIGN KEY (passenger_id) REFERENCES passenger(id),
-  FOREIGN KEY (flight_id) REFERENCES flight(id)
+  FOREIGN KEY (passenger_id) REFERENCES passengers(id),
+  FOREIGN KEY (flight_id) REFERENCES flights(id)
 );
