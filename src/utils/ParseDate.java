@@ -8,17 +8,21 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class ParseDate {
 
-	private static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-	private static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	private static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	public static LocalDate toDatetime(String date) {
+		if (date.contains("-")) {
+			return LocalDate.parse(date, inputFormatter);
+		}
+		
 		return LocalDate.parse(date, outputFormatter);
 	}
 
 	public static String toString(String inputDateTime) {
 		LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
 
-		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		String formattedDateTime = dateTime.format(outputFormatter);
 
