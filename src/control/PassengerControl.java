@@ -22,6 +22,10 @@ public class PassengerControl implements Control {
 
 	private ObservableList<Passenger> list = FXCollections.observableArrayList();
 
+	public PassengerControl() {
+		this.index();
+	}
+	
 	protected Passenger makeEntity() {
 		Passenger p = new Passenger();
 		p.setName(this.name.get());
@@ -34,12 +38,24 @@ public class PassengerControl implements Control {
 	}
 
 	public void save() {
-		PassengerDAO dao = new PassengerDAO(makeEntity());
+		Passenger p = makeEntity();
+		PassengerDAO dao = new PassengerDAO(p);
 		dao.create();
+		list.add(p);
 	}
 
 	public void index() {
 		ResultSet data = new PassengerDAO().index();
+		
+		try {
+			while (data.next()) {
+				Passenger p = toBoundary(data);
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void search(String input) {
@@ -54,17 +70,23 @@ public class PassengerControl implements Control {
 
 		try {
 			while (data.next()) {
-				Passenger p = new Passenger();
-				p.setName(data.getString("name"));
-				p.setCpf(data.getString("cpf"));
-				p.setPhone(data.getString("phone"));
-				p.setEmail(data.getString("email"));
-				p.setBirthDate(ParseDate.toDatetime(data.getString("birthday")));
+				Passenger p = toBoundary(data);
 				list.add(p);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected Passenger toBoundary(ResultSet data) throws SQLException {
+		Passenger p = new Passenger();
+		p.setName(data.getString("name"));
+		p.setCpf(data.getString("cpf"));
+		p.setPhone(data.getString("phone"));
+		p.setEmail(data.getString("email"));
+		p.setBirthDate(ParseDate.toDatetime(data.getString("birthday")));
+		
+		return p;
 	}
 
 	public SimpleStringProperty nameProperty() {
