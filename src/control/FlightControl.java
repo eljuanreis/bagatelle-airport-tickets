@@ -101,10 +101,11 @@ public class FlightControl implements Control {
 		a.setId(Long.parseLong(data.getString("airline_id")));
 		
 		f.setAirline(a);
-		f.setAirplane(data.getString(""));
+		f.setAirplane(data.getString("airplane"));
 		f.setNumber(data.getString("number"));
+		f.setDate(ParseDate.toDatetime(data.getString("date")));
 		f.setBoardingTime(ParseTime.toLocalTime(data.getString("boardingTime")));
-		f.setDepartureTime(ParseTime.toLocalTime(data.getString("departureTime ")));
+		f.setDepartureTime(ParseTime.toLocalTime(data.getString("departureTime")));
 		f.setArrivalTime(ParseTime.toLocalTime(data.getString("arrivalTime")));
 		f.setDepartureAirport(data.getString("departureAirport"));
 		f.setDestinationAirport(data.getString("destinationAirport"));

@@ -35,7 +35,7 @@ public class FlightBoundary extends Application {
 	@Override
 	public void start(Stage stage) { 
 		BorderPane mainPane = new BorderPane();
-		Scene scn = new Scene(mainPane, 720, 600);
+		Scene scn = new Scene(mainPane, 960, 600);
 		stage.setResizable(false);
 		
 		Button btnSave = new Button("Cadastrar");
@@ -121,17 +121,52 @@ public class FlightBoundary extends Application {
 				data -> new ReadOnlyStringWrapper(data.getValue().getAirline().getName())
 		);
 		
-		TableColumn<Flight, String> col2 = new TableColumn<>("Nº Voo");
+		TableColumn<Flight, String> col2 = new TableColumn<>("Aeronave");
 		col2.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getAirplane())
+		);
+		
+		TableColumn<Flight, String> col3 = new TableColumn<>("Nº Voo");
+		col3.setCellValueFactory(
 				data -> new ReadOnlyStringWrapper(data.getValue().getNumber())
 		);
 		
-		TableColumn<Flight, String> col3 = new TableColumn<>("Data");
-		col3.setCellValueFactory(
+		TableColumn<Flight, String> col4 = new TableColumn<>("Data");
+		col4.setCellValueFactory(
 				data -> new ReadOnlyStringWrapper(data.getValue().getDate().toString())
 		);
 		
-		table.getColumns().addAll(col1, col2, col3);
+		TableColumn<Flight, String> col5 = new TableColumn<>("Horário de embarque");
+		col5.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getBoardingTime().toString())
+		);
+		
+		TableColumn<Flight, String> col6 = new TableColumn<>("Horário de saída");
+		col6.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getDepartureTime().toString())
+		);
+		
+		TableColumn<Flight, String> col7 = new TableColumn<>("Horário de chegada");
+		col7.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getArrivalTime().toString())
+		);
+		
+		TableColumn<Flight, String> col8 = new TableColumn<>("Aeroporto de origem");
+		col8.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getDepartureAirport().toString())
+		);
+		
+		TableColumn<Flight, String> col9 = new TableColumn<>("Aeroporto de destino");
+		col9.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getDestinationAirport().toString())
+		);
+		
+		TableColumn<Flight, String> col10 = new TableColumn<>("Portão de embarque");
+		col10.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getGate().toString())
+		);
+		
+		table.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10);
 		
 		table.setItems(control.getList());
 	}
