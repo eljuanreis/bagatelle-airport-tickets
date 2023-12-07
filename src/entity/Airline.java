@@ -4,6 +4,10 @@ public class Airline {
 	private String name;
 	private long id;
 	
+	public Airline() {
+		super();
+	}
+	
 	public Airline(String name, long id) {
 		super();
 		this.name = name;

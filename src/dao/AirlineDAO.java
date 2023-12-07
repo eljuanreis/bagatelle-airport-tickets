@@ -4,33 +4,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import contracts.DAO;
 import database.DBManager;
-import entity.Passenger;
-import utils.ParseDate;
+import entity.Airline;
 
-public class PassengerDAO implements DAO {
-
-	private Passenger passenger;
+public class AirlineDAO {
+	
+	private Airline airline;
 	private DBManager db = DBManager.getInstance();
 
-	public PassengerDAO() {
+	public AirlineDAO() {
 		super();
 	}
 	
-	public PassengerDAO(Passenger passenger) {
-		this.passenger = passenger;
+	public AirlineDAO(Airline airline) {
+		this.airline = airline;
 	}
 
 	public void create() {
 		try {
 			PreparedStatement stmt = db
-					.prepare("INSERT INTO PASSENGERS (NAME, CPF, PHONE, EMAIL, BIRTHDAY) VALUES (?, ?, ?, ?, ?)");
-			stmt.setString(1, passenger.getName());
-			stmt.setString(2, passenger.getCpf());
-			stmt.setString(3, passenger.getPhone());
-			stmt.setString(4, passenger.getEmail());
-			stmt.setDate(5, ParseDate.asDate(passenger.getBirthDate()));
+					.prepare("INSERT INTO AIRLINES (NAME) VALUES (?)");
+			stmt.setString(1, airline.getName());
+
 			db.insert(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -40,11 +35,12 @@ public class PassengerDAO implements DAO {
 
 	public ResultSet index() {
 		try {
-			PreparedStatement stmt = db.prepare("SELECT * FROM PASSENGERS");
+			PreparedStatement stmt = db.prepare("SELECT * FROM AIRLINES");
 			ResultSet rs = db.select(stmt);
 
 			return rs;
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -54,7 +50,7 @@ public class PassengerDAO implements DAO {
 	public ResultSet search(String field, String input) {
 		try {
 			PreparedStatement stmt = db.prepare(
-				"SELECT * FROM PASSENGERS WHERE " + field + " LIKE ?"
+				"SELECT * FROM AIRLINES WHERE " + field + " LIKE ?"
 			);
 			stmt.setString(1, "%" + input + "%");
 			ResultSet rs = db.select(stmt);
@@ -66,5 +62,5 @@ public class PassengerDAO implements DAO {
 
 		return null;
 	}
-
+	
 }
