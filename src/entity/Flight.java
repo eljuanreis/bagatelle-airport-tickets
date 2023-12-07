@@ -48,9 +48,7 @@ public class Flight {
 	public void setId(long id) throws SQLException {
 		this.id = id;
 		
-		if (id != 0) {
-			this.setNumber(EntityLoadRelations.getAttributeById("flights", this.id, "number"));
-		}
+		this.setNumber(EntityLoadRelations.getAttributeById("flights", this.id, "number"));
 	}
 
 	public Airline getAirline() {

@@ -1,9 +1,7 @@
 package boundary;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import entity.Ticket;
+import control.FlightControl;
+import entity.Flight;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -13,15 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
+import utils.ParseDate;
 
-public class FlightBoundary extends Application {	
+public class FlightBoundary extends Application {
+	private FlightControl control = new FlightControl();
 	private TextField txtAirline = new TextField();
-	private TextField txtAirplane = new TextField();
+	private TextField txtAirplane = new TextField(); // nao tem no banco
 	private TextField txtNumber = new TextField();
 	private TextField txtDate = new TextField();
 	private TextField txtBoardingTime = new TextField();
@@ -30,7 +28,7 @@ public class FlightBoundary extends Application {
 	private TextField txtDepartureAirport = new TextField();
 	private TextField txtDestinationAirport = new TextField();
 	private TextField txtGate = new TextField();
-	private TableView<Ticket> table = new TableView<Ticket>();
+	private TableView<Flight> table = new TableView<Flight>();
 	
 	@Override
 	public void start(Stage stage) { 
@@ -86,6 +84,40 @@ public class FlightBoundary extends Application {
 		stage.setScene(scn);
 		stage.setTitle("Cadastro Voos");
 		stage.show();
+	}
+	
+	public void binding() {
+		Bindings.bindBidirectional(txtAirline.textProperty(), control.airlineProperty());
+		Bindings.bindBidirectional(txtNumber.textProperty(), control.numberProperty());
+		Bindings.bindBidirectional(txtDate.textProperty(), control.dateProperty());
+		Bindings.bindBidirectional(txtBoardingTime.textProperty(), control.boardingTimeProperty());
+		Bindings.bindBidirectional(txtDepartureTime.textProperty(), control.departureTimeProperty());
+		Bindings.bindBidirectional(txtArrivalTime.textProperty(), control.arrivalTimeProperty());
+		Bindings.bindBidirectional(txtDepartureAirport.textProperty(), control.departureAirportProperty());
+		Bindings.bindBidirectional(txtDestinationAirport.textProperty(), control.destinationAirportProperty());
+		Bindings.bindBidirectional(txtGate.textProperty(), control.gateProperty());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void buildList() {
+		TableColumn<Flight, String> col1 = new TableColumn<>("Companhia");
+		col1.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getAirline().getName())
+		);
+		
+		TableColumn<Flight, String> col2 = new TableColumn<>("Nº Voo");
+		col2.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(data.getValue().getNumber())
+		);
+		
+		TableColumn<Flight, String> col3 = new TableColumn<>("Data");
+		col3.setCellValueFactory(
+				data -> new ReadOnlyStringWrapper(ParseDate.toString(data.getValue().getDate().toString()))
+		);
+		
+		table.getColumns().addAll(col1, col2, col3);
+		
+		table.setItems(control.getList());
 	}
 	
 	public static void main(String args[]) { 

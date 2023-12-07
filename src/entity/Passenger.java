@@ -33,9 +33,7 @@ public class Passenger {
 	public void setId(long id) {
 		this.id = id;
 		
-		if (id != 0) {
-			this.setName(EntityLoadRelations.getAttributeById("passengers", this.id, "name"));
-		}
+		this.setName(EntityLoadRelations.getAttributeById("passengers", this.id, "name"));
 	}
 
 	public String getName() {
