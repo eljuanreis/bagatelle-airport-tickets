@@ -17,6 +17,7 @@ CREATE TABLE airlines (
 
 CREATE TABLE flights (
   id INT PRIMARY KEY AUTO_INCREMENT,
+  airplane VARCHAR(255),
   airline_id INT,
   number VARCHAR(20),
   date DATE,

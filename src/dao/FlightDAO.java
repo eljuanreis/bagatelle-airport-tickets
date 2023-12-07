@@ -28,6 +28,7 @@ public class FlightDAO implements DAO {
 		try {
 			PreparedStatement stmt = db
 					.prepare("INSERT INTO FLIGHTS ("
+							+ "AIRPLANE,"
 							+ "AIRLINE_ID,"
 							+ "NUMBER,"
 							+ "DATE,"
@@ -39,16 +40,17 @@ public class FlightDAO implements DAO {
 							+ "GATE) "
 							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
+			stmt.setString(1, flight.getAirplane());
 			String airlineId = String.valueOf(flight.getAirline().getId());
-			stmt.setString(1, airlineId);
-			stmt.setString(2, flight.getNumber());
-			stmt.setDate(3, ParseDate.asDate(flight.getDate()));
-			stmt.setTime(4, ParseTime.asTime(flight.getBoardingTime()));
-			stmt.setTime(5, ParseTime.asTime(flight.getDepartureTime()));
-			stmt.setTime(6, ParseTime.asTime(flight.getArrivalTime()));
-			stmt.setString(7, flight.getDepartureAirport());
-			stmt.setString(8, flight.getDestinationAirport());
-			stmt.setString(9, flight.getGate());
+			stmt.setString(2, airlineId);
+			stmt.setString(3, flight.getNumber());
+			stmt.setDate(4, ParseDate.asDate(flight.getDate()));
+			stmt.setTime(5, ParseTime.asTime(flight.getBoardingTime()));
+			stmt.setTime(6, ParseTime.asTime(flight.getDepartureTime()));
+			stmt.setTime(7, ParseTime.asTime(flight.getArrivalTime()));
+			stmt.setString(8, flight.getDepartureAirport());
+			stmt.setString(9, flight.getDestinationAirport());
+			stmt.setString(10, flight.getGate());
 
 			db.insert(stmt);
 		} catch (SQLException e) {
