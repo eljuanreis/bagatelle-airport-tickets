@@ -53,7 +53,6 @@ public class PassengerControl implements Control {
 				list.add(p);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -80,6 +79,7 @@ public class PassengerControl implements Control {
 	
 	protected Passenger toBoundary(ResultSet data) throws SQLException {
 		Passenger p = new Passenger();
+		p.setId(Long.parseLong(data.getString("id")));
 		p.setName(data.getString("name"));
 		p.setCpf(data.getString("cpf"));
 		p.setPhone(data.getString("phone"));
