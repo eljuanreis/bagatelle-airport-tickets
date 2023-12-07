@@ -40,7 +40,7 @@ public class TicketDAO implements DAO {
 			String passengerId = String.valueOf(ticket.getPassenger().getId());
 			stmt.setString(1, passengerId);
 			
-			String flightId = String.valueOf(ticket.getPassenger().getId());
+			String flightId = String.valueOf(ticket.getFlight().getId());
 			stmt.setString(2, flightId);
 			
 			stmt.setString(3, ticket.getSeat());
@@ -62,6 +62,22 @@ public class TicketDAO implements DAO {
 			return rs;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	public ResultSet search(String field, String input) {
+		try {
+			PreparedStatement stmt = db.prepare(
+				"SELECT * FROM TICKETS WHERE " + field + " LIKE ?"
+			);
+			stmt.setString(1, "%" + input + "%");
+			ResultSet rs = db.select(stmt);
+
+			return rs;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

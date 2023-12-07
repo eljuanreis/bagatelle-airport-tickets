@@ -27,31 +27,34 @@ public class Index {
 			p.setCpf("aaa");
 			p.setPhone("123");
 			p.setEmail("aasd");
+//			p.setBirthDate(ParseDate.toDatetime("01/01/2000"));
 //			
+////			
 //			PassengerDAO pd = new PassengerDAO(p);
 //			pd.create();
 //			pd.index();
 			
 			Airline a = new Airline();
-			a.setName("gol");
-			a.setId(2);
+			a.setId(1);
+			a.setName("Gol");
+//			System.out.println(a.getName());
 //			AirlineDAO ad = new AirlineDAO(a);
 //			ad.create();
 //			ad.index();
 			
 			Flight f = new Flight();
-			f.setId(2);
+			f.setId(7);
 			f.setAirline(a);
 			f.setAirplane("Boeing 737");
 			f.setNumber("G70787");
-			f.setDate(ParseDate.toDatetime("06/12/2023 00:00"));
+			f.setDate(ParseDate.toDatetime("06/12/2023"));
 			f.setBoardingTime(ParseTime.toLocalTime("18:00"));
 			f.setDepartureTime(ParseTime.toLocalTime("19:00"));
 			f.setArrivalTime(ParseTime.toLocalTime("20:00"));
 			f.setDepartureAirport("SBGR");
 			f.setDestinationAirport("SBRJ");
 			f.setGate("1A");
-			
+//			
 //			FlightDAO fd = new FlightDAO(f);
 //			fd.create();
 //			fd.index();
@@ -68,7 +71,6 @@ public class Index {
 			
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

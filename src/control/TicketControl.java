@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import contracts.Control;
+import dao.FlightDAO;
 import dao.TicketDAO;
 import entity.Flight;
 import entity.Passenger;
@@ -51,7 +52,6 @@ public class TicketControl implements Control {
 			dao.create();
 			list.add(p);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}
@@ -65,7 +65,25 @@ public class TicketControl implements Control {
 				list.add(t);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void search(String input) {
+		ResultSet data = new TicketDAO().search("seat", seat.get());
+		
+		passenger.set("");
+		flight.set("");
+		seat.set("");
+		seatClass.set("");
+		list.clear();
+
+		try {
+			while (data.next()) {
+				Ticket t = toBoundary(data);
+				list.add(t);
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
