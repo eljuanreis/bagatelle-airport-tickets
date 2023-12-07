@@ -5,6 +5,8 @@ import entity.Flight;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +21,7 @@ import utils.ParseDate;
 public class FlightBoundary extends Application {
 	private FlightControl control = new FlightControl();
 	private TextField txtAirline = new TextField();
-	private TextField txtAirplane = new TextField(); // nao tem no banco
+	private TextField txtAirplane = new TextField();
 	private TextField txtNumber = new TextField();
 	private TextField txtDate = new TextField();
 	private TextField txtBoardingTime = new TextField();
@@ -41,10 +43,11 @@ public class FlightBoundary extends Application {
 		
 		GridPane paneForm = new GridPane();
 		
+		binding();
+		buildList();
+		
 		paneForm.add(new Label("Companhia Aérea: "), 0, 0);
 		paneForm.add(txtAirline, 1, 0);
-		Button btnSearchAirline = new Button("Procurar");
-		paneForm.add(btnSearchAirline, 2, 0);
 		
 		paneForm.add(new Label("Modelo da Aeronave: "), 0, 1);
 		paneForm.add(txtAirplane, 1, 1);
@@ -81,13 +84,26 @@ public class FlightBoundary extends Application {
 		
 		mainPane.setStyle("-fx-padding: 25px");
 		
+		btnSave.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent event) {
+		    	control.save();
+		    }
+		});
+		btnSearch.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent event) {
+		    	control.search(txtNumber.getText());
+		    }
+		});
+		
 		stage.setScene(scn);
 		stage.setTitle("Cadastro Voos");
 		stage.show();
 	}
 	
 	public void binding() {
+		
 		Bindings.bindBidirectional(txtAirline.textProperty(), control.airlineProperty());
+		Bindings.bindBidirectional(txtAirplane.textProperty(), control.airplaneProperty());
 		Bindings.bindBidirectional(txtNumber.textProperty(), control.numberProperty());
 		Bindings.bindBidirectional(txtDate.textProperty(), control.dateProperty());
 		Bindings.bindBidirectional(txtBoardingTime.textProperty(), control.boardingTimeProperty());
@@ -112,7 +128,7 @@ public class FlightBoundary extends Application {
 		
 		TableColumn<Flight, String> col3 = new TableColumn<>("Data");
 		col3.setCellValueFactory(
-				data -> new ReadOnlyStringWrapper(ParseDate.toString(data.getValue().getDate().toString()))
+				data -> new ReadOnlyStringWrapper(data.getValue().getDate().toString())
 		);
 		
 		table.getColumns().addAll(col1, col2, col3);

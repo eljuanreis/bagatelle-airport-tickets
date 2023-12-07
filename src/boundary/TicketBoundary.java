@@ -26,8 +26,8 @@ public class TicketBoundary extends Application {
 	private TextField txtSeatClass = new TextField();
 	
 	private Button btnSave = new Button("Cadastrar");
+	private Button btnSearch = new Button("Procurar");
 
-	// id devera ser gerado automaticamente
 	private TableView<Ticket> table = new TableView<Ticket>();
 	
 	@Override
@@ -35,22 +35,16 @@ public class TicketBoundary extends Application {
 		BorderPane mainPane = new BorderPane();
 		Scene scn = new Scene(mainPane, 720, 600);
 		stage.setResizable(false);
-		
-		Button btnSearch = new Button("Procurar");
-		
 		GridPane paneForm = new GridPane();
 		
 		binding();
 		buildList();
+		
 		paneForm.add(new Label("Passageiro: "), 0, 0);
 		paneForm.add(txtPassenger, 1, 0);
-		Button btnSearchPassenger = new Button("Procurar");
-		paneForm.add(btnSearchPassenger, 2, 0);
 		
 		paneForm.add(new Label("Voo: "), 0, 1);
 		paneForm.add(txtFlight, 1, 1);
-		Button btnSearchFlight = new Button("Procurar");
-		paneForm.add(btnSearchFlight, 2, 1);
 		
 		paneForm.add(new Label("Assento: "), 0, 2);
 		paneForm.add(txtSeat, 1, 2);
@@ -64,6 +58,11 @@ public class TicketBoundary extends Application {
 		btnSave.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent event) {
 		    	control.save();
+		    }
+		});
+		btnSearch.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent event) {
+		    	control.search(txtSeat.getText());;
 		    }
 		});
 		

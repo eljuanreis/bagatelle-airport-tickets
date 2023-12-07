@@ -38,7 +38,7 @@ public class FlightDAO implements DAO {
 							+ "DEPARTUREAIRPORT,"
 							+ "DESTINATIONAIRPORT,"
 							+ "GATE) "
-							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			stmt.setString(1, flight.getAirplane());
 			String airlineId = String.valueOf(flight.getAirline().getId());
@@ -61,12 +61,28 @@ public class FlightDAO implements DAO {
 
 	public ResultSet index() {
 		try {
-			PreparedStatement stmt = db.prepare("SELECT * FROM AIRLINES");
+			PreparedStatement stmt = db.prepare("SELECT * FROM FLIGHTS");
 			ResultSet rs = db.select(stmt);
 
 			return rs;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	public ResultSet search(String field, String input) {
+		try {
+			PreparedStatement stmt = db.prepare(
+				"SELECT * FROM FLIGHTS WHERE " + field + " LIKE ?"
+			);
+			stmt.setString(1, "%" + input + "%");
+			ResultSet rs = db.select(stmt);
+
+			return rs;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

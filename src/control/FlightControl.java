@@ -2,15 +2,11 @@ package control;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 import contracts.Control;
 import dao.FlightDAO;
-import dao.TicketDAO;
 import entity.Airline;
 import entity.Flight;
-import entity.Ticket;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -42,7 +38,7 @@ public class FlightControl implements Control {
 		f.setAirline(a);
 		f.setAirplane(this.airplane.get());
 		f.setNumber(this.number.get());
-//		f.setDate(ParseDate.toString(null));
+		f.setDate(ParseDate.parseStringToLocal(this.date.get()));
 		f.setBoardingTime(ParseTime.toLocalTime(this.boardingTime.get()));
 		f.setDepartureTime(ParseTime.toLocalTime(this.departureTime.get()));
 		f.setArrivalTime(ParseTime.toLocalTime(this.arrivalTime.get()));
@@ -65,11 +61,35 @@ public class FlightControl implements Control {
 		
 		try {
 			while (data.next()) {
-				Flight t = toBoundary(data);
-				list.add(t);
+				Flight f = toBoundary(data);
+				list.add(f);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void search(String input) {
+		ResultSet data = new FlightDAO().search("number", number.get());
+		
+		airline.set("");
+		airplane.set("");
+		number.set("");
+		date.set("");
+		boardingTime.set("");
+		departureTime.set("");
+		arrivalTime.set("");
+		departureAirport.set("");
+		destinationAirport.set("");
+		gate.set("");
+		list.clear();
+
+		try {
+			while (data.next()) {
+				Flight f = toBoundary(data);
+				list.add(f);
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -78,7 +98,7 @@ public class FlightControl implements Control {
 		Flight f = new Flight();
 		
 		Airline a = new Airline();
-		a.setId(Long.parseLong(data.getString("airline_id ")));
+		a.setId(Long.parseLong(data.getString("airline_id")));
 		
 		f.setAirline(a);
 		f.setAirplane(data.getString(""));
@@ -92,12 +112,13 @@ public class FlightControl implements Control {
 		
 		return f;
 	}
-
+	
 	public StringProperty airlineProperty() {
 		return airline;
 	}
+	
 
-	public StringProperty getAirplane() {
+	public StringProperty airplaneProperty() {
 		return airplane;
 	}
 
@@ -106,7 +127,7 @@ public class FlightControl implements Control {
 	}
 
 	public StringProperty dateProperty() {
-		return number;
+		return date;
 	}
 
 	public StringProperty boardingTimeProperty() {

@@ -37,4 +37,9 @@ public abstract class ParseDate {
 		java.util.Date utilDate = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	    return new java.sql.Date(utilDate.getTime());
 	}
+	
+	public static LocalDate parseStringToLocal(String date) {
+		
+		return LocalDate.parse(date, outputFormatter);
+	}
 }
