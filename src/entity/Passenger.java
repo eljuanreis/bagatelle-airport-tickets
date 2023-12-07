@@ -2,6 +2,8 @@ package entity;
 
 import java.time.LocalDate;
 
+import utils.EntityLoadRelations;
+
 public class Passenger {
 	private long id;
 	private String name;
@@ -30,6 +32,10 @@ public class Passenger {
 
 	public void setId(long id) {
 		this.id = id;
+		
+		if (id != 0) {
+			this.setName(EntityLoadRelations.getAttributeById("passengers", this.id, "name"));
+		}
 	}
 
 	public String getName() {

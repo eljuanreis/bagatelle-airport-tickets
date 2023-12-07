@@ -1,7 +1,11 @@
 package entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import utils.EntityLoadRelations;
 
 public class Flight {
 	private long id;
@@ -41,8 +45,12 @@ public class Flight {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(long id) throws SQLException {
 		this.id = id;
+		
+		if (id != 0) {
+			this.setNumber(EntityLoadRelations.getAttributeById("flights", this.id, "number"));
+		}
 	}
 
 	public Airline getAirline() {
