@@ -45,7 +45,22 @@ public class PassengerDAO implements DAO {
 
 			return rs;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	public ResultSet search(String field, String input) {
+		try {
+			PreparedStatement stmt = db.prepare(
+				"SELECT * FROM PASSENGERS WHERE " + field + " LIKE ?"
+			);
+			stmt.setString(1, "%" + input + "%");
+			ResultSet rs = db.select(stmt);
+
+			return rs;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
