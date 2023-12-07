@@ -32,8 +32,10 @@ public class AirlineControl implements Control {
 	}
 	
 	public void save() {
-		AirlineDAO dao = new AirlineDAO(makeEntity());
+		Airline a = makeEntity();
+		AirlineDAO dao = new AirlineDAO(a);
 		dao.create();
+		list.add(a);
 	}
 	
 	public void index() {
