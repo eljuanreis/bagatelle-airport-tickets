@@ -111,7 +111,7 @@ public class PassengerBoundary extends Application {
 		);
 		
 		TableColumn<Passenger, String> colBrithday = new TableColumn<>("Data de nascimento");
-		colEmail.setCellValueFactory(
+		colBrithday.setCellValueFactory(
 				passengerData -> new ReadOnlyStringWrapper(passengerData.getValue().getBirthDate().toString())
 		);
 		
