@@ -1,5 +1,7 @@
 package entity;
 
+import utils.EntityLoadRelations;
+
 public class Airline {
 	private String name;
 	private long id;
@@ -28,6 +30,8 @@ public class Airline {
 
 	public void setId(long id) {
 		this.id = id;
+		
+		this.setName(EntityLoadRelations.getAttributeById("airlines", this.id, "name"));
 	}
 	
 }

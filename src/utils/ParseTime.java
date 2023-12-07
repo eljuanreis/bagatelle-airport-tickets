@@ -13,16 +13,17 @@ public abstract class ParseTime {
 
 	public static LocalTime toLocalTime(String time) {
 		Date date;
-		
+
 		try {
 			date = inputFormatter.parse(time);
 			return new Time(date.getTime()).toLocalTime();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
+
 
 	public static String toString(LocalTime localTime) {
 		if (localTime == null) {

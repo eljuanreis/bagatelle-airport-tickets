@@ -66,5 +66,4 @@ public class PassengerDAO implements DAO {
 
 		return null;
 	}
-
 }
