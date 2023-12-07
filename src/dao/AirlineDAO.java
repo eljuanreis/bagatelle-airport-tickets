@@ -47,4 +47,20 @@ public class AirlineDAO {
 		return null;
 	}
 	
+	public ResultSet search(String field, String input) {
+		try {
+			PreparedStatement stmt = db.prepare(
+				"SELECT * FROM AIRLINES WHERE " + field + " LIKE ?"
+			);
+			stmt.setString(1, "%" + input + "%");
+			ResultSet rs = db.select(stmt);
+
+			return rs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
 }

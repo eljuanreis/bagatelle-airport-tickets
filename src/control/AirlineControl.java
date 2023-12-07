@@ -1,15 +1,23 @@
 package control;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import contracts.Control;
 import dao.AirlineDAO;
 import entity.Airline;
+import entity.Passenger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import utils.ParseDate;
 
 public class AirlineControl implements Control {
+	
 	private StringProperty name = new SimpleStringProperty();
+	
+	private ObservableList<Airline> list = FXCollections.observableArrayList();
 	
 	protected Airline makeEntity() {
 		Airline a = new Airline();
@@ -25,5 +33,30 @@ public class AirlineControl implements Control {
 	
 	public void index() {
 		ResultSet data = new AirlineDAO().index();
+	}
+	
+	public void search(String input) {
+		ResultSet data = new AirlineDAO().search("name", name.get());
+		
+		name.set("");
+		list.clear();
+
+		try {
+			while (data.next()) {
+				Airline a = new Airline();
+				a.setName(data.getString("name"));
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public SimpleStringProperty nameProperty() {
+		return (SimpleStringProperty) name;
+	}
+	
+	public ObservableList<Airline> getList() {
+		return list;
 	}
 }
